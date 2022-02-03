@@ -4,7 +4,7 @@ Chalice is a tool to facilitate Python based lambda deployment. This repo contai
 
 My specific goal with this tiny project was to examine the output of the terraform code and understand what resources will be created for a helloworld project.
 
-I followed (this tutorial| https://aws.github.io/chalice/topics/tf.html), although used virtualenv a bit differently.
+I followed [this tutorial](https://aws.github.io/chalice/topics/tf.html), although used virtualenv a bit differently.
 
 ```
 python3 --version
@@ -12,14 +12,14 @@ python3 -m venv venv38
 . venv38/bin/activate
 ```
 
-As instructed in the tutorial, instead of `chalice deploy`, I used `chalice package` to specify terraform as the deployment method. The output folder contained the zip file for the lambda and the terraform file in JSON format. 
-`terraform` should be run in the output folder.
+As instructed in the tutorial, instead of running `chalice deploy`, I used `chalice package` to specify terraform as the package format. Once executed, the output folder contained the zip file for the lambda and the terraform code file in JSON format. 
+`terraform` should be run in the output folder to initiate deployment.
 
 ```
 chalice package --pkg-format terraform /tmp/packaged-app/
 ```
 
-# Terraform output
+# Applying terraform
 
 Output of the `terraform apply` command shows the creation of the following resources:
  - aws_api_gateway_deployment
@@ -29,9 +29,11 @@ Output of the `terraform apply` command shows the creation of the following reso
  - aws_lambda_function
  - aws_lambda_permission
 
+And here is the output:
+
 ```terraform
 
-(venv38) csillabessenyei@Csillas-MacBook-Air packaged-app % terraform apply
+$ terraform apply
 provider.aws.region
   The region where AWS operations will take place. Examples
   are us-east-1, us-west-2, etc.
@@ -240,3 +242,6 @@ aws_api_gateway_deployment.rest_api: Creation complete after 1s [id=g8xs21]
 Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
 
 ```
+
+# TODO
+ - Build a pipeline
